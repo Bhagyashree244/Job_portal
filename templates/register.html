@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Create Your Account</h2>
+<form method="POST">
+    <label>Full Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <label>Role:</label>
+    <select name="role">
+        <option value="seeker">Job Seeker</option>
+        <option value="employer">Employer</option>
+    </select>
+
+    <button type="submit" class="button">Register</button>
+</form>
+<p><a href="/login">Already have an account? Login here</a></p>
+{% endblock %}

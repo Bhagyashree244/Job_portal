@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Applicants for {{ job.title }}</h2>
+
+{% if applicants %}
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Cover Letter</th>
+        <th>Resume</th>
+        <th>Status</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in applicants %}
+        <tr>
+          <td>{{ app.user.email }}</td>
+          <td>{{ app.cover_letter }}</td>
+          <td>
+            {% if app.resume_path %}
+              <a href="/{{ app.resume_path }}" target="_blank">View</a>
+            {% else %}
+              No Resume
+            {% endif %}
+          </td>
+          <td>{{ app.status }}</td>
+          <td>
+            <form method="POST" action="/update-status/{{ app.id }}">
+              <select name="status">
+                <option value="Pending" {% if app.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Reviewed" {% if app.status == 'Reviewed' %}selected{% endif %}>Reviewed</option>
+                <option value="Accepted" {% if app.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                <option value="Rejected" {% if app.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+              </select>
+              <button type="submit" class="button">Update</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No applicants for this job yet.</p>
+{% endif %}
+{% endblock %}

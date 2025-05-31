@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Welcome Job Seeker, {{ user.name }}</h2>
+<a href="/profile" class="button">View Profile</a>
+
+<h3>Jobs You Have Applied To</h3>
+{% if applications %}
+    {% for app in applications %}
+        <div class="card">
+            <h3>{{ app.job.title }}</h3>
+            <p><strong>Location:</strong> {{ app.job.location }}</p>
+            <p><strong>Status:</strong> {{ app.status }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>You haven't applied to any jobs yet.</p>
+{% endif %}
+{% endblock %}

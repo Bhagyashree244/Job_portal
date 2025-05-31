@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Your Posted Jobs</h2>
+{% if jobs %}
+  {% for job in jobs %}
+    <div class="card">
+      <h3>{{ job.title }} {% if job.is_closed %}<span style="color: red;">(Closed)</span>{% endif %}</h3>
+      <p>Applicants: {{ job.applicant_count }}</p>
+      <a href="/view-applicants/{{ job.id }}" class="button">View Applicants</a>
+      {% if not job.is_closed %}
+        <form method="POST" action="/close-job/{{ job.id }}" style="display:inline;">
+            <button type="submit" class="button">Mark as Closed</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% else %}
+  <p>You haven't posted any jobs yet.</p>
+{% endif %}
+{% endblock %}

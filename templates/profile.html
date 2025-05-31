@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Your Profile</h2>
+
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Role:</strong> {{ user.role }}</p>
+
+<!-- Resume Section -->
+{% if user.resume_path %}
+  <p><strong>Resume:</strong> <a href="/{{ user.resume_path }}" target="_blank">View Resume</a></p>
+{% else %}
+  <p><strong>Resume:</strong> Not uploaded</p>
+{% endif %}
+
+<form action="/upload-resume" method="POST" enctype="multipart/form-data">
+    <label>Upload/Update Resume (PDF):</label>
+    <input type="file" name="resume" accept=".pdf" />
+    <button type="submit" class="button">Upload Resume</button>
+</form>
+
+<!-- Experience Section -->
+<h3>Experience</h3>
+{% if user.experience %}
+    <p>{{ user.experience }}</p>
+{% else %}
+    <p>No experience provided yet.</p>
+{% endif %}
+<form action="/update-experience" method="POST">
+    <label>Update Experience:</label>
+    <textarea name="experience" placeholder="Enter your experience..."></textarea>
+    <button type="submit" class="button">Update</button>
+</form>
+
+<!-- Application History -->
+<h3>Applied Jobs</h3>
+<ul>
+    {% for app in applications %}
+      <li>
+          <strong>{{ app.job.title }}</strong> - {{ app.status }} (Applied on {{ app.application_date.strftime('%Y-%m-%d') }})
+      </li>
+    {% endfor %}
+</ul>
+{% endblock %}

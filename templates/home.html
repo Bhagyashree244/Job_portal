@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Welcome, {{ email }}!</h2>
+<p>You are logged in as <strong>{{ role }}</strong>.</p>
+{% if role == 'seeker' %}
+    <a href="/dashboard/seeker" class="button">Go to Dashboard</a>
+    <a href="/jobs" class="button">Browse Jobs</a>
+{% elif role == 'employer' %}
+    <a href="/dashboard/employer" class="button">Go to Dashboard</a>
+    <a href="/post-job" class="button">Post a Job</a>
+{% endif %}
+{% endblock %}
