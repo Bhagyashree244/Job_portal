@@ -99,7 +99,7 @@ job_project/
 
 
 
-## 📬 Email Notifications (
+## 📬 Email Notifications 
 
 - Enable Gmail 2FA and create an App Password
 - Add credentials to `mail_config.py`
